@@ -61,10 +61,41 @@ inquirer.prompt([
     });
 
 
-// make a function for each answers  //
+///// make a function for each answers  ////
 /*
-// pass in the table into this function 
+//// pass in the table into function below /////
 viewDepartments();
+viewEmployees();
+
+//// inside this function add inquirer.prompt ////
+addDepartment() =>
+    inquirer.prompt([
+{type:'input'
+name:''
+message:'What is the name of the department?'
+input:''
+}
+/////// ADD DEPARTMENT INTO DATABASE //////
+
+addRole() =>
+inquirer.prompt([
+{type:'input',
+name:'',
+message:'What is the name of the role??'
+}
+{type:'input',
+name:'',
+message:'Whatis the slary of this role?'
+}
+{type:'input',
+name:'',
+message:'Which department does the role belong to?'
+}
+/////// ADD NAME OF ROLL INTO DATABASE //////
+
+
+addEmployee();
+updateEmployee();
 
 
 /*
