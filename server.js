@@ -25,10 +25,13 @@ choices:
 'Add a department',
 'Add a role',
 'Add an employee,
-'Update an employee role']},
+'Update an employee role']}
 /* 
 
-// Choice: View all departments  >> Table of >> Department names Department ids
-// Choice : View all roles >> Job title , role id , department role belongs to , salary for that role
-// Choice: View all employees >> Table of >> Employee Data , Employee ids , First names, Last Names, Job Titles, Departments, Salaries and Managers employee report to 
-// Choice : Add a department  >> Prompt >>
+// if Choice is > View all departments  > then show > FORMATTED TABLE OF > with > Department names , Department ids
+// if Choice is > View all roles >> Job title , role id , department role belongs to , salary for that role
+//if Choice is  > View all employees >> Table of >> Employee Data , Employee ids , First names, Last Names, Job Titles, Departments, Salaries and Managers employee report to 
+// if Choice is > Add a department  >> Prompt >>
+
+/// Use switch case for the answers////
+// make a function for each answers  //
