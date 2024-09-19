@@ -37,6 +37,10 @@ inquirer.prompt([
                 /// function //
                 break;
 
+            case 'View all roles':
+                console.log('');
+                /// function //
+                break;
             case 'View all employees':
                 console.log('');
                 /// function //
@@ -53,21 +57,28 @@ inquirer.prompt([
                 console.log('');
                 /// function //
                 break;
-            case 'Update an employee role':
-                console.log('');
-                /// function //
-                break;
-        }
-    });
-
-
-///// make a function for each answers  ////
+                case 'Update an employee role':
+                    console.log('');
+                    /// function //
+                    break;
+                }
+            });
+            
+            
+ ///// make a function for each answers  ////
 /*
-//// pass in the table into function below /////
-viewDepartments();
-viewEmployees();
+  //// pass in the table into function below /////
+ viewDepartments();
+ // if Choice is > View all departments  > then show > FORMATTED TABLE OF > with > Department names , Department ids
 
-//// inside this function add inquirer.prompt ////
+viewRoles();
+/// if Choice is > View all roles >> Job title , role id , department role belongs to , salary for that role
+
+viewAllEmployees();
+//if Choice is  > View all employees >> Table of >> Employee Data , Employee ids , First names, Last Names, Job Titles, Departments, Salaries and Managers employee report to
+/*
+
+/// inside this function add inquirer.prompt ////
 addDepartment() =>
     inquirer.prompt([
 {type:'input'
@@ -85,23 +96,47 @@ message:'What is the name of the role??'
 }
 {type:'input',
 name:'',
-message:'Whatis the slary of this role?'
+message:'What is the slary of this role?'
 }
 {type:'input',
 name:'',
 message:'Which department does the role belong to?'
-}
+choices:['Engenieering','Finance','Legal','Sales','Service',]}
+>>>> log "ADDED __ TO THE DATABASE"
 /////// ADD NAME OF ROLL INTO DATABASE //////
 
 
 addEmployee();
+inquirer.prompt([
+    {type:'input',
+    name:'',
+    message:'What is the employee first name?'}
+    
+    {type:'input',
+    name:'',
+    message:'What is the employees last name?'}
+    
+    {type:'input',
+    name:'',
+    message:'What is the employees role?'
+    choices:['Sales Lead','Salesperson','Lead Engineer','Software Engineer','Account Manager','Accountant','Legal Team Lead','Lawyer'}
+
+{type:'input',
+name:'',
+message:'Who is the employees manager?'
+choices:['']}
+]) 
+///// ADD EMPLOYEE IS ADDED TO DATABASE /////
+
 updateEmployee();
+inquirer.prompt([
+{type:'input',
+name:'',
+message:'Which employees role do you want to update?'}
 
+{type:'input',
+name:'',
+message:'Which role do you want to assign the selctes employee?'}
+])
+/// UPDATE EMPLOYEE'S ROLE ON TABLE ////
 
-/*
-
-
-// if Choice is > View all departments  > then show > FORMATTED TABLE OF > with > Department names , Department ids
-// if Choice is > View all roles >> Job title , role id , department role belongs to , salary for that role
-//if Choice is  > View all employees >> Table of >> Employee Data , Employee ids , First names, Last Names, Job Titles, Departments, Salaries and Managers employee report to 
-// if Choice is > Add a department  >> Prompt >>
