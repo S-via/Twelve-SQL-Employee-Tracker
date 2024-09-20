@@ -72,10 +72,10 @@ inquirer.prompt([
  // if Choice is > View all departments  > then show > FORMATTED TABLE OF > with > Department names , Department ids
 
 viewRoles();
-/// if Choice is > View all roles >> Job title , role id , department role belongs to , salary for that role
+/// if Choice is > View all roles > then show > FORMATED TABLE OF > Job title , role id , department role belongs to , salary for that role
 
 viewAllEmployees();
-//if Choice is  > View all employees >> Table of >> Employee Data , Employee ids , First names, Last Names, Job Titles, Departments, Salaries and Managers employee report to
+//if Choice is  > View all employees > then show > FORMATTED TABLE OF > Employee Data , Employee ids , First names, Last Names, Job Titles, Departments, Salaries and Managers employee report to
 /*
 
 /// inside this function add inquirer.prompt ////
@@ -96,12 +96,12 @@ message:'What is the name of the role??'
 }
 {type:'input',
 name:'',
-message:'What is the slary of this role?'
+message:'What is the salary of this role?'
 }
 {type:'input',
 name:'',
 message:'Which department does the role belong to?'
-choices:['Engenieering','Finance','Legal','Sales','Service',]}
+choices:['Engenieering','Finance','Legal','Sales',]}
 >>>> log "ADDED __ TO THE DATABASE"
 /////// ADD NAME OF ROLL INTO DATABASE //////
 
@@ -121,11 +121,10 @@ inquirer.prompt([
     message:'What is the employees role?'
     choices:['Sales Lead','Salesperson','Lead Engineer','Software Engineer','Account Manager','Accountant','Legal Team Lead','Lawyer'}
 
-{type:'input',
-name:'',
-message:'Who is the employees manager?'
-choices:['']}
-]) 
+    {type:'input',
+    name:'',
+    message:'Who is the employees manager?'
+    choices:['']}]) 
 ///// ADD EMPLOYEE IS ADDED TO DATABASE /////
 
 updateEmployee();
