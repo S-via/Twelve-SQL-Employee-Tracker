@@ -57,10 +57,12 @@ inquirer.prompt([
                 console.log('Viewing all employees');
                 /// function //
                 viewAllEmployees();
+                
                 break;
             case 'Add a department':
-                console.log('');
+                console.log('Add the department');
                 /// function //
+                addDepartment();
                 break;
             case 'Add a role':
                 console.log('');
@@ -82,39 +84,67 @@ inquirer.prompt([
 //// pass in the table into function below /////
 // if Choice is > View all departments  > then show > FORMATTED TABLE OF > with > Department names , Department ids
 function viewDepartments() {
-    pool.query('SELECT * FROM departments', function (err, { rows }) {
-        if (err) { console.log(err); }
-        console.log(rows);
+    pool.query('SELECT * FROM departments',(err,res) => {
+        if (err) { console.error('error') }
+        else {
+            console.table(res.rows)
+        }
+        return;
     }
     )
-} return viewDepartments();
+} 
 
 /// if Choice is > View all roles > then show > FORMATED TABLE OF > Job title , role id , department role belongs to , salary for that role
 function viewRoles() {
-    pool.query('SELECT * FROM roles', function (err, { rows }) {
-        if (err) { console.log(err); }
-        console.log(rows);
+    pool.query('SELECT * FROM roles', (err,res) => {
+        if (err) { console.error('error')}
+        else {
+        console.table(res.rows)}
+        return;
     }
     )
-};
+} 
 
+//if Choice is  > View all employees > then show > FORMATTED TABLE OF > Employee Data , Employee ids , First names, Last Names, Job Titles, Departments, Salaries and Managers employee report to
 function viewAllEmployees() {
-    pool.query('SELECT * FROM roles' function (err, { rows }) {
-        if (err) { console.log(err); }
-        console.log(rows);
+    pool.query('SELECT * FROM employees', (err,res) => {
+        if (err) { console.error('error')}
+        else {
+        console.log(res.rows)}
+        return;
     })
 }
-//if Choice is  > View all employees > then show > FORMATTED TABLE OF > Employee Data , Employee ids , First names, Last Names, Job Titles, Departments, Salaries and Managers employee report to
 
 
 /// inside this function add inquirer.prompt ////
-/* addDepartment() =>
+function addDepartment() {
     inquirer.prompt([
-{type:'input',
-name:'',
-message:'What is the name of the department?'}
+        {
+            type: 'input',
+            name: 'addingDepartment',
+            message: 'What is the name of the department?'
+        }])
+        .then(answers => {
+            const data = [answers.addingDepartment];
+            const query = 'INSERT INTO departments(name) VALUES ($1)'
+            pool.query(query, data, (err) => {
+                if (err) {
+                    console.log(err)
+                }
+                else { console.log('department added to database') }
+                return;
+
+            }
+        )}
+        
+    
+    )}
+
+
 /////// ADD DEPARTMENT INTO DATABASE //////
 
+
+/*
 addRole() =>
 inquirer.prompt([
 {type:'input',
@@ -164,8 +194,8 @@ message:'Which employees role do you want to update?'}
 name:'newRole',
 message:'Which role do you want to assign the selctes employee?'}
 ])
-/// UPDATE EMPLOYEE'S ROLE ON TABLE ////
+/// UPDATE EMPLOYEE'S ROLE ON TABLE ///*/
 
-app.listen(PORT, () => {
+/* app.listen(PORT, () => {
     console.log (`server is running {PORT}`);
     }  */

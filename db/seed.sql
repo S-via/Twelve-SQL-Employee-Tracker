@@ -1,3 +1,4 @@
+
 INSERT INTO departments(id, name)
 VALUES (001,'Engineering'),
         (002,'Finance'),
@@ -18,9 +19,9 @@ VALUES
 
  INSERT INTO employees(id,first_name,last_name,role_id,manager_id)
 VALUES
-(001,'silvia','villalba',1,1); 
+(001,'silvia','villalba',1,NULL); 
 
-SELECT * FROM departments;
+SELECT name FROM departments;
 
 SELECT * FROM roles;
 SELECT * FROM employees;
