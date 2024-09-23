@@ -92,13 +92,10 @@ mainPrompt()
 function viewDepartments() {
     pool.query('SELECT * FROM departments', (err, res) => {
         if (err) { console.error('error') }
-        else {
-            console.table(res.rows)
-        }
         mainPrompt()
-
+        
     }
-    )
+)
 }
 
 /// if Choice is > View all roles > then show > FORMATED TABLE OF > Job title , role id , department role belongs to , salary for that role
@@ -110,7 +107,7 @@ function viewRoles() {
         }
         mainPrompt()
     }
-    )
+)
 }
 
 //if Choice is  > View all employees > then show > FORMATTED TABLE OF > Employee Data , Employee ids , First names, Last Names, Job Titles, Departments, Salaries and Managers employee report to
@@ -141,13 +138,13 @@ function addDepartment() {
                 }
                 else { console.log('department added to database') }
                 mainPrompt()
-
+                
             }
-            )
-        }
-
-
         )
+    }
+    
+    
+)
 }
 
 /////// ADD NAME OF ROLES INTO DATABASE //////
@@ -170,29 +167,29 @@ function addRole() {
             choices: ['Engenieering', 'Finance', 'Legal', 'Sales',]
         },
     ])
-        .then(answers => {
-            let depId;
-            if (answers.roleDepartment === 'Engenieering')
-                depId = 1;
-            else if (answers.roleDepartment === 'Finance')
-                depId = 2;
-            else if (answers.roleDepartment === 'Legal')
-                depId = 3;
-            else if (answers.roleDepartment === 'Sales')
-                depId = 4;
-            else { console.log("Log invalid"); return; }
-
-            pool.query
-                ('INSERT INTO roles(title,salary,department_id) VALUES ($1, $2, $3)', [answers.roleName, answers.roleSalary, depId], (err) => {
-                    if (err) {
-                        console.log(err)
-                    }
-                    else { console.log('Roles added into databse') }
-                }
-                )
-            mainPrompt()
+    .then(answers => {
+        let depId;
+        if (answers.roleDepartment === 'Engenieering')
+            depId = 1;
+        else if (answers.roleDepartment === 'Finance')
+            depId = 2;
+        else if (answers.roleDepartment === 'Legal')
+            depId = 3;
+        else if (answers.roleDepartment === 'Sales')
+            depId = 4;
+        else { console.log("Log invalid"); return; }
+        
+        pool.query
+        ('INSERT INTO roles(title,salary,department_id) VALUES ($1, $2, $3)', [answers.roleName, answers.roleSalary, depId], (err) => {
+            if (err) {
+                console.log(err)
+            }
+            else { console.log('Roles added into databse') }
         }
-        )
+    )
+    mainPrompt()
+}
+)
 }
 
 ///// ADD EMPLOYEE IS ADDED TO DATABASE /////
@@ -216,38 +213,49 @@ function addEmployee() {
             message: 'What is the employees role?',
             choices: ['Sales Lead', 'Salesperson', 'Lead Engineer', 'Software Engineer', 'Account Manager', 'Accountant', 'Legal Team Lead', 'Lawyer'],
         },
-
+        // for everychoice make an if else statment to 
         {
-            type: 'input',
+            type: 'list',
             name: 'manager',
-            message: 'Who is the employees manager?'
+            message: 'Who is the employees manager?',
+            choices:['Martin','Grace','Tony'],
         } ])
-
+        
         .then(answers => {
-
-            pool.query('INSERT INTO employees(first_name,last_name,role_id,manager_id) VALUES ($1,$2,$3,$4)', [answers.firstName, answers.lastName, answers.employeRole,answers.manager], (err) => {
+            let managerId;
+            if (answers.manager === 'Martin')
+                managerId = 1;
+            else if (answers.manager === 'Grace')
+                managerId = 2;
+            else { console.log("Log invalid"); return; }
+            
+            pool.query('INSERT INTO employees(first_name,last_name,role_id,manager_id) VALUES ($1,$2,$3,$4)', [answers.firstName, answers.lastName, answers.employeRole,managerId], (err) => {
                 if (err) { console.log(err) }
                 else { console.log('employee added into database') }
-
+                
             }
-            )
-            mainPrompt()
-        })
+        )
+        mainPrompt()
+    })
 }
 
 /* function updateEmployee(){
-inquirer.prompt([
-    {
-        type: 'input',
-        name: 'newName',
-        message: 'Which employees role do you want to update?'
-    },
-
-{
-        type: 'input',
-        name: 'newRole',
-        message: 'Which role do you want to assign the selctes employee?'
-    }
-]) }
+ inquirer.prompt([
+            {
+                type: 'list',
+                name: 'newName',
+                message: 'Which employees role do you want to update?',
+                choices: 
+            },
+            
+            {
+                type: 'list',
+            name: 'newRole',
+            message: 'Which role do you want to assign the selctes employee?'
+            choices:''
+        },
+        
+    ])  }
  */
+
 /// UPDATE EMPLOYEE'S ROLE ON TABLE ///
