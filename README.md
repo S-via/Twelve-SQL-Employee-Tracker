@@ -4,9 +4,16 @@ As A business owner
 I want to view and manage the depasrtments,roles,and employees in my company 
 SO THAT I can organize and plan my buisness 
 
+## INSTALLATION
+- node.js V8
+- npm i
+- npm Inquier
+- express
+- pg 
+- postgres
 
 
-## Description
+## USAGE
 
 WHEN you start the application
 THEN you are presented with the following options: View all deparments, view all roles, view all employees add a department, add a role, add an employee and update and employee role<br> 
@@ -27,4 +34,7 @@ WHEN I choose to update and employee role
 WHEN I choose to update and  employee role <br>
 THEN I am prompted to select an employee to update and their new role and this infomation is updated in the database<br>
 
-## USAGE
+![exampledemo](images/Image.png)<br>
+## DEMO
+--> Click on the link demo below for a video demonstration on how it works<br>
+[linkdemo](https://youtu.be/5ozd-ft0khQ)
