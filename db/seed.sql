@@ -1,9 +1,9 @@
 
-INSERT INTO departments(id, name)
-VALUES ('Engineering'),
+INSERT INTO departments(name)
+VALUES ('Sales'),      
+        ('Engineering'),
         ('Finance'),
-        ('Legal'),
-        ('Sales');
+        ('Legal');
 
 INSERT INTO roles(title,salary,department_id) 
 VALUES 
@@ -12,7 +12,7 @@ VALUES
  ('Lead Engineer',8000,2),
  ('Software Engineer',8000,2),
  ('Account Manager',8000,3),
- ('Accountant',8000),3,
+ ('Accountant',8000,3),
  ('Legal Team Lead',8000,4),
  ('Lawyer',8000,4);
 

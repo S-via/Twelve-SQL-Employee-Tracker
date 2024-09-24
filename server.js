@@ -2,14 +2,9 @@
 const express = require('express');
 const app = express();
 const inquirer = require('inquirer');
+const fs = require('fs')
+
 const { Pool } = require('pg');
-
-// Middleware 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-
-
-// Connect to data base throughPool
 const pool = new Pool(
     {
         user: 'postgres',
@@ -19,10 +14,16 @@ const pool = new Pool(
     },
     console.log('Connected to tracker database')
 )
-pool.connect(); // connects to databse tracker_db
+pool.connect() // connects to databse tracker_db
+// Middleware 
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+
+// Connect to data base throughPool
 // inquirer.prompt()
-function mainPrompt() {
-    inquirer.prompt([
+
+  function mainPrompt() { inquirer.prompt([
 
         {
             type: 'list',
@@ -42,47 +43,50 @@ function mainPrompt() {
         .then(answers => {
             switch (answers.options) {
                 case 'View all departments':
-                    console.log('viewing all departments');
                     viewDepartments()
+            
+
+                    console.log('viewing all departments')
                     /// function //
 
                     break;
 
                 case 'View all roles':
-                    console.log('viewing all roles');
                     /// function //
+                    console.log('viewing all roles');
                     viewRoles();
                     break;
                 case 'View all employees':
-                    console.log('Viewing all employees');
                     /// function //
                     viewAllEmployees();
+                    console.log('Viewing all employees');
 
                     break;
                 case 'Add a department':
-                    console.log('Add the department');
                     /// function //
+                    console.log('Add the department');
                     addDepartment();
                     break;
                 case 'Add a role':
-                    console.log('Add a role');
                     /// function //
+                    console.log('Add a role');
                     addRole();
                     break;
                 case 'Add an employee':
-                    console.log('Add an employee');
                     /// function //
+                    console.log('Add an employee');
                     addEmployee();
                     break;
                 case 'Update an employee role':
-                    console.log('Employee added to role');
                     /// function //
+                    console.log('Employee added to role');
                     updateEmployee();
                     break;
             }
         })
-}
-mainPrompt()
+
+  }
+  mainPrompt()
 
 
 
@@ -92,10 +96,12 @@ mainPrompt()
 function viewDepartments() {
     pool.query('SELECT * FROM departments', (err, res) => {
         if (err) { console.error('error') }
-        mainPrompt()
+        else {console.table(res.rows)}
+        return mainPrompt()
         
     }
 )
+
 }
 
 /// if Choice is > View all roles > then show > FORMATED TABLE OF > Job title , role id , department role belongs to , salary for that role
@@ -103,9 +109,9 @@ function viewRoles() {
     pool.query('SELECT * FROM roles', (err, res) => {
         if (err) { console.error('error') }
         else {
-            console.table(res.rows)
-        }
-        mainPrompt()
+            console.table(res.rows)}
+        
+       return mainPrompt()
     }
 )
 }
@@ -117,14 +123,15 @@ function viewAllEmployees() {
         else {
             console.table(res.rows)
         }
-        mainPrompt()
+        return mainPrompt()
+      
     })
 }
 
 
 /// inside this function add inquirer.prompt and into database  ////
 /////// ADD DEPARTMENT INTO DATABASE //////
-function addDepartment() {
+ function addDepartment() {
     inquirer.prompt([
         {
             type: 'input',
@@ -137,15 +144,15 @@ function addDepartment() {
                     console.log(err)
                 }
                 else { console.log('department added to database') }
-                mainPrompt()
                 
             }
         )
+        mainPrompt()
     }
     
     
-)
-}
+) }
+
 
 /////// ADD NAME OF ROLES INTO DATABASE //////
 function addRole() {
@@ -177,10 +184,10 @@ function addRole() {
             depId = 3;
         else if (answers.roleDepartment === 'Sales')
             depId = 4;
-        else { console.log("Log invalid"); return; }
+        else { console.log("Log invalid"); return; } 
         
         pool.query
-        ('INSERT INTO roles(title,salary,department_id) VALUES ($1, $2, $3)', [answers.roleName, answers.roleSalary, depId], (err) => {
+        ('INSERT INTO roles(title,salary,department_id) VALUES ($1, $2, $3)', [answers.roleName, answers.roleSalary,depId], (err) => {
             if (err) {
                 console.log(err)
             }
@@ -190,7 +197,7 @@ function addRole() {
     mainPrompt()
 }
 )
-}
+} 
 
 ///// ADD EMPLOYEE IS ADDED TO DATABASE /////
 function addEmployee() {
@@ -211,25 +218,25 @@ function addEmployee() {
             type: 'list',
             name: 'employeRole',
             message: 'What is the employees role?',
-            choices: ['Sales Lead', 'Salesperson', 'Lead Engineer', 'Software Engineer', 'Account Manager', 'Accountant', 'Legal Team Lead', 'Lawyer'],
+            choices: ['Sales Lead', 'Salesperson', 'Lead Engineer', 'Software Engineer', 'Account Manager', 'Accountant', 'Legal Team Lead', 'Lawyer']
         },
         // for everychoice make an if else statment to 
-        {
-            type: 'list',
+        
+          {   type: 'list',
             name: 'manager',
             message: 'Who is the employees manager?',
-            choices:['Martin','Grace','Tony'],
-        } ])
+            choices:['Martin','Grace','Tony'],}
+         ])
         
         .then(answers => {
-            let managerId;
+           let managerId;
             if (answers.manager === 'Martin')
                 managerId = 1;
             else if (answers.manager === 'Grace')
                 managerId = 2;
             else { console.log("Log invalid"); return; }
             
-            pool.query('INSERT INTO employees(first_name,last_name,role_id,manager_id) VALUES ($1,$2,$3,$4)', [answers.firstName, answers.lastName, answers.employeRole,managerId], (err) => {
+            pool.query('INSERT INTO employees(first_name,last_name,role_id,manager_id) VALUES ($1,$2,$3,$4)', [answers.firstName, answers.lastName,answers.employeRole,managerId], (err) => {
                 if (err) { console.log(err) }
                 else { console.log('employee added into database') }
                 
